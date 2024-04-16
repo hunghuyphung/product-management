@@ -1,0 +1,141 @@
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="layouts/commons :: meta-data"/>
+    <th:block th:include="layouts/commons :: css-common"/>
+</head>
+<body>
+<div>
+    <th:block th:replace="layouts/fragment :: image_header"/>
+
+    <div class="wrapper">
+        <th:block th:replace="layouts/fragment :: sidebar-menu"/>
+
+        <div class="wrapper__content">
+            <div class="wrapper__content__header flex items-center hidden-mobile">
+                <img th:src="@{/images/home.svg}" alt="" class="icon-0 mr-16">
+                <span class="pt-3">Trang trủ</span>
+                <img th:src="@{/images/caret-right.svg}" alt="" class="icon-0 mx-16">
+                <span class="pt-3">Hệ thống</span>
+                <img th:src="@{/images/caret-right.svg}" alt="" class="icon-0 mx-16">
+                <span class="pt-3">Quản lý sản phẩm</span>
+                <img th:src="@{/images/caret-right.svg}" alt="" class="icon-0 mx-16">
+                <span class="pt-3">Sản phẩm</span>
+            </div>
+            <div class="my-24 p-28 rounded-8 bc-3 shadow-md hidden-mobile">
+                <form action="#" th:action="@{/products/search}" th:object="${searchProductRequest}"
+                      method="post">
+                    <div class="flex items-center">
+                        <div class="pr-64 pr-8-landscape w-1-2 flex justify-between items-center">
+                            <span>Tên sản phẩm</span>
+                            <input type="text" name="name" th:field="*{name}"
+                                   placeholder="Tên sản phẩm"
+                                   class="wrapper__content__input w-240 min-w-172-landscape">
+                        </div>
+                    </div>
+                    <div class="pt-16 flex items-center justify-center">
+                        <button type="submit" class="button bc-1 color-1 rounded-4 hover-dark-gray">Tìm kiếm
+                        </button>
+                        <span class="px-8"></span>
+                        <a class="button bc-1 color-1 rounded-4 hover-dark-gray no-underline"
+                           th:href="@{/products/add}"
+                        >Thêm mới
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div class="p-28 bc-3 border-2 rounded-10 shadow-md">
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                        <tr class="font-14">
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>STT</b></th>
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>Tên</b></th>
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>Giá</b></th>
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>Thể loại</b></th>
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>Mô tả</b></th>
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>Số lượng</b></th>
+                            <th class="table-thread w-1-4 min-w-175 min-w-140-tablet"><b>Thao tác</b></th>
+                        </tr>
+                        </thead>
+                        <tr th:each="product, iStat : ${products}">
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet"
+                                th:text="${startOrder + iStat.index}"></td>
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet"
+                                th:text="${product.getName()}"></td>
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet"
+                                th:text="${product.getPrice()}"></td>
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet"
+                                th:text="${product.getCategory()}"></td>
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet"
+                                th:text="${product.getDescription()}"></td>
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet"
+                                th:text="${product.getQuantity()}"></td>
+                            <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet flex items-center">
+                                <a
+                                        th:href="@{'/products/' + ${product.getId()} + '/edit'}">
+                                    <img th:src="@{/images/pencil.svg}" alt="" class="icon-0">
+                                </a>
+                                <span class="px-8"></span>
+                                <button
+                                        type="button" th:onclick="'handleDisplayDialog(\'' + ${product.getId()} + '\')'"
+                                        class="inline-block bc-3 border-none"
+                                >
+                                    <img th:src="@{/images/trash.svg}" alt="" class="icon-0 cursor-pointer">
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    <span class="block py-16 color-3" th:if="${products.isEmpty()}">
+                        Không có dữ liệu thỏa mãn điều kiện tìm kiếm
+                    </span>
+                    <div class="py-8 text-center">
+                        <form action="#" th:action="@{/products/search}"
+                              th:object="${searchProductRequest}" method="post"
+                              class="flex justify-center flex-nowrap">
+                            <input type="hidden" name="name" value=""
+                                   th:value="${searchProductRequest.getName()}"/>
+                            <select name="pageNumber" class="table-page-select">
+                                <option
+                                        class="table-page-select__opt hover-blue"
+                                        th:each="pageOpt : ${pageList}"
+                                        th:value="${pageOpt}"
+                                        th:text="'Page ' + ${pageOpt + 1} + ' of ' + ${totalPage}">
+                                </option>
+                            </select>
+                            <select name="pageSize" class="table-page-select mx-8">
+                                <option
+                                        class="table-page-select__opt hover-blue"
+                                        th:each="pageSizeOpt : ${pageSizeOptList}"
+                                        th:value="${pageSizeOpt}" th:text="${pageSizeOpt}"
+                                ></option>
+                            </select>
+                            <button type="submit" class="button bc-1 color-1 rounded-4 hover-dark-gray">
+                                <img th:src="@{/images/rotate-right.svg}" alt="" class="icon-4"
+                                     style="margin-top: 0.063rem">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--dialog-->
+<th:block th:each="product : ${products}">
+    <th:block th:replace="~{dialogs/confirm-dialog :: confirmDialog(
+        ${product.getId()},
+        'Bạn có muốn xóa bản ghi này?',
+        '/products/' + ${product.getId()} + '/delete',
+        ''
+    )}"/>
+</th:block>
+<!--toast-->
+<th:block th:replace="~{layouts/notification-toast :: notification_toast(${toastResponse})}">
+</th:block>
+
+</body>
+</html>

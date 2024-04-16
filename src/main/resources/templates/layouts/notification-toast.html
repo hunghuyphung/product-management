@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="notification_toast(toastResponse)">
+    <!--success toast-->
+    <th:block th:if="${toastResponse != null && toastResponse.getDeleted()}">
+        <div class="toast-pos min-w-350" th:id="notification-toast">
+            <div
+                    class="toast-animation flex justify-between items-center success-toast border-3"
+            >
+                <div class="flex items-center">
+                    <img th:src="@{/images/check-circle.svg}" alt="" class="icon-0 mb-2 mr-8">
+                    <span th:text="${toastResponse?.getMessage()}"></span>
+                </div>
+                <button class="border-none bc-4 hover-blue"
+                        th:onclick="handleDisplayNotificationToast()"
+                >
+                    <img th:src="@{/images/close-blue.svg}" alt="" class="icon-1 mt-3">
+                </button>
+            </div>
+        </div>
+    </th:block>
+    <!--error toast-->
+    <th:block th:if="${toastResponse != null && !toastResponse.getDeleted()}">
+        <div class="toast-pos min-w-350" th:id="notification-toast">
+            <div
+                    class="toast-animation flex justify-between items-center error-toast border-4"
+            >
+                <div class="flex items-center">
+                    <img th:src="@{/images/exclamation.svg}" alt="" class="icon-0 mb-2 mr-8">
+                    <span th:text="${toastResponse?.getMessage()}"></span>
+                </div>
+                <button class="border-none bc-5 hover-blue"
+                        th:onclick="handleDisplayNotificationToast()"
+                >
+                    <img th:src="@{/images/close-red.svg}" alt="" class="icon-1 mt-3">
+                </button>
+            </div>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>

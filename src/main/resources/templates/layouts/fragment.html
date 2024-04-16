@@ -1,0 +1,65 @@
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="image_header">
+    <div class="admin-header">
+        <div class="flex items-center">
+            <span class="font-14">Admin</span>
+            <button class="ml-16 border-none" th:onclick="handleDisplayUserMenu()">
+                <img th:src="@{/images/avatar.png}" alt="" class="admin-header__avatar cursor-pointer">
+            </button>
+        </div>
+    </div>
+    <th:block th:replace="layouts/user-menu :: user_menu"/>
+</div>
+
+<div th:fragment="sidebar-menu">
+    <div class="sidebar-menu flex flex-col">
+        <div class="sidebar-menu__thread pl-16-tablet pl-16-mobile">
+            <div class="flex items-center">
+                <img th:src="@{/images/settings.svg}" alt="" class="icon-0 mr-8">
+                <span class="hidden-tablet hidden-mobile">Hệ thống</span>
+            </div>
+            <img th:src="@{/images/angle-small-down.svg}" alt="" class="icon-0 hidden-tablet hidden-mobile">
+        </div>
+        <div class="sidebar-menu__thread pl-16-tablet pl-16-mobile pl-12">
+            <div class="flex items-center">
+                <img th:src="@{/images/box-open.svg}" alt="" class="icon-0 mr-8">
+                <span class="hidden-tablet hidden-mobile">Quản lý sản phẩm</span>
+            </div>
+            <img th:src="@{/images/angle-small-down.svg}" alt="" class="icon-0 hidden-tablet hidden-mobile">
+        </div>
+        <a class="sidebar-menu__thread pl-16-tablet pl-16-mobile pl-24 hover-dark-gray no-underline"
+           th:href="@{/products}"
+        >
+            <div class="flex items-center">
+                <img th:src="@{/images/workflow-setting-alt.svg}" alt=""
+                     class="icon-0 hidden block-tablet block-mobile">
+                <span class="hidden-tablet hidden-mobile">Sản phẩm</span>
+            </div>
+        </a>
+        <a class="sidebar-menu__thread pl-16-tablet pl-16-mobile pl-24 hover-dark-gray no-underline" href="#">
+            <div class="flex items-center">
+                <img th:src="@{/images/users.svg}" alt="" class="icon-0 hidden mr-8 block-tablet block-mobile">
+                <span class="hidden-tablet hidden-mobile">Kho</span>
+            </div>
+        </a>
+        <a class="sidebar-menu__thread pl-16-tablet pl-16-mobile pl-24 hover-dark-gray no-underline" href="#">
+            <div class="flex items-center">
+                <img th:src="@{/images/portrait.svg}" alt="" class="icon-0 hidden mr-8 block-tablet block-mobile">
+                <span class="hidden-tablet hidden-mobile">Nhà cung cấp</span>
+            </div>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

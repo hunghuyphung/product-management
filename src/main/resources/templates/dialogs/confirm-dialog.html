@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="confirmDialog(id, message, apiPath, updatedValue)">
+    <div class="fixed top-0 left-0 right-0 bottom-0 z-3 flex items-center justify-center hidden"
+         style="display: none" th:id="${id}">
+        <div class="relative bc-3 dialog min-w-350 leading-default text-center">
+            <div class="flex justify-end mb-28">
+                <button
+                        th:onclick="'handleDisplayDialog(\'' + ${id} + '\')'"
+                        class="dialog__btn-close hover-dark-gray inline-block bc-3 border-none"
+                >
+                    <img th:src="@{/images/close.svg}" alt="" class="icon-1">
+                </button>
+            </div>
+            <span class="block mb-28" th:text="${message}"></span>
+            <form
+                    action="#" th:action="@{'' + ${apiPath}}" method="post"
+                    class="flex items-center justify-center"
+            >
+                <input type="hidden" name="status" value=""
+                       th:value="${updatedValue}"/>
+                <button
+                        type="button"
+                        th:onclick="'handleDisplayDialog(\'' + ${id} + '\')'"
+                        class="button bc-2 color-1 rounded-4 hover-dark-gray no-underline"
+                >
+                    Hủy
+                </button>
+                <span class="px-8"></span>
+                <button
+                        type="submit"
+                        class="button bc-1 color-1 rounded-4 hover-dark-gray no-underline leading-default"
+                >Đồng ý
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

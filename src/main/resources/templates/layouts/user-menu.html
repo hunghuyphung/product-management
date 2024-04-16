@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div th:fragment="user_menu">
+    <div id="user-menu" class="border-1 bc-3">
+        <span class="block menu-opt border-bottom-1 fw-600 color-2">Tùy chọn</span>
+        <a class="flex menu-opt hover-dark-gray no-underline"
+            th:href="@{/logout}"
+        >
+            <img th:src="@{/images/exit.svg}" alt="" class="icon-1 mt-2 mr-8">
+            <span>Đăng xuất</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

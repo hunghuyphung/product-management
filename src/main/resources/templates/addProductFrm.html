@@ -1,0 +1,143 @@
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <th:block th:include="layouts/commons :: meta-data"/>
+    <th:block th:include="layouts/commons :: css-common"/>
+</head>
+<body>
+<div>
+    <th:block th:replace="layouts/fragment :: image_header"/>
+    <div class="wrapper">
+        <th:block th:replace="layouts/fragment :: sidebar-menu"/>
+        <div class="wrapper__content">
+            <div class="wrapper__content__header flex items-center hidden-mobile">
+                <img th:src="@{/images/home.svg}" alt="" class="icon-0 block mr-16">
+                <span class="pt-3">Trang trủ</span>
+                <img th:src="@{/images/caret-right.svg}" alt="" class="icon-0 block mx-16">
+                <span class="pt-3">Hệ thống</span>
+                <img th:src="@{/images/caret-right.svg}" alt="" class="icon-0 block mx-16">
+                <span class="pt-3">Quản lý sản phẩm</span>
+                <img th:src="@{/images/caret-right.svg}" alt="" class="icon-0 block mx-16">
+                <span class="pt-3">Sản phẩm</span>
+            </div>
+            <div class="my-24 rounded-8 shadow-md">
+                <span class="px-28 py-16 bc-1 color-1 w-full block fw-600">Thêm mới sản phẩm</span>
+                <div class="p-28 bc-3 hidden-mobile">
+                    <div
+                            class="mb-15 error-toast"
+                            th:if="${addedCheck != null && !addedCheck}"
+                    >
+                        <span>Có lỗi xảy ra trong quá trình thực hiện</span>
+                    </div>
+                    <form action="#" th:action="@{/products/add}" th:object="${addProductRequest}"
+                          method="post">
+                        <div>
+                            <div class="flex items-end">
+                                <div class="pr-64 pr-8-landscape w-1-2">
+                                    <ul class="error-inp-toast error-message-js"
+                                        th:if="${!#fields.errors('name').isEmpty()}">
+                                        <li th:each="err : ${#fields.errors('name')}" th:text="${err}" class="pt-2"/>
+                                    </ul>
+                                </div>
+                                <div class="pl-64 pl-8-landscape w-1-2">
+                                    <ul class="error-inp-toast error-message-js"
+                                        th:if="${!#fields.errors('price').isEmpty()}">
+                                        <li th:each="err : ${#fields.errors('price')}" th:text="${err}" class="pt-2"/>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="pr-64 pr-8-landscape w-1-2 flex justify-between items-center">
+                                    <span>Tên sản phẩm</span>
+                                    <input type="text" th:field="*{name}" name="name" placeholder="Tên sản phẩm"
+                                           class="wrapper__content__input w-240 min-w-172-landscape">
+                                </div>
+                                <div class="pl-64 pl-8-landscape w-1-2 flex justify-between items-center">
+                                    <span>Giá</span>
+                                    <input type="text" th:field="*{price}" name="price" placeholder="Giá"
+                                           class="wrapper__content__input w-240 min-w-172-landscape">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-16">
+                            <div class="flex items-end">
+                                <div class="pr-64 pr-8-landscape w-1-2">
+                                    <ul class="error-inp-toast error-message-js"
+                                        th:if="${!#fields.errors('description').isEmpty()}">
+                                        <li th:each="err : ${#fields.errors('description')}" th:text="${err}" class="pt-2"/>
+                                    </ul>
+                                </div>
+                                <div class="pl-64 pl-8-landscape w-1-2">
+                                    <ul class="error-inp-toast error-message-js"
+                                        th:if="${!#fields.errors('category').isEmpty()}">
+                                        <li th:each="err : ${#fields.errors('category')}" th:text="${err}" class="pt-2"/>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="pr-64 pr-8-landscape w-1-2 flex justify-between items-center">
+                                    <label>Mô tả</label>
+                                    <input type="text" th:field="*{description}" name="description" placeholder="Mô tả"
+                                           class="wrapper__content__input w-240 min-w-172-landscape">
+                                </div>
+                                <div class="pl-64 pl-8-landscape w-1-2 flex justify-between items-center">
+                                    <span>Thể loại</span>
+                                    <select name="category" th:field="*{category}"
+                                            class="wrapper__content__input w-240 min-w-172-landscape">
+                                        <option th:each="opt : ${T(com.ptit.productmanagement.enums.Category).values()}"
+                                                th:value="${opt}" th:text="${opt.getVnName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-16">
+                            <div class="flex items-end">
+                                <div class="pr-64 pr-8-landscape w-1-2">
+                                    <ul class="error-inp-toast error-message-js"
+                                        th:if="${!#fields.errors('quantity').isEmpty()}">
+                                        <li th:each="err : ${#fields.errors('quantity')}" th:text="${err}" class="pt-2"/>
+                                    </ul>
+                                </div>
+                                <div class="pl-64 pl-8-landscape w-1-2">
+                                    <ul class="error-inp-toast error-message-js"
+                                        th:if="${!#fields.errors('productImage').isEmpty()}">
+                                        <li th:each="err : ${#fields.errors('productImage')}" th:text="${err}" class="pt-2"/>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="pr-64 pr-8-landscape w-1-2 flex justify-between items-center">
+                                    <span>Số lượng</span>
+                                    <input type="text" th:field="*{quantity}" name="quantity" placeholder="Số lượng"
+                                           class="wrapper__content__input w-240 min-w-172-landscape">
+                                </div>
+                                <div class="pl-64 pl-8-landscape w-1-2 flex justify-between items-center">
+                                    <span>Ảnh</span>
+                                    <input type="text" th:field="*{productImage}" name="productImage" placeholder="Ảnh"
+                                           class="wrapper__content__input w-240 min-w-172-landscape">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-16 flex items-center justify-center">
+                            <a
+                                    class="button bc-2 color-1 rounded-4 hover-dark-gray no-underline"
+                                    th:href="@{/products}"
+                            >Hủy
+                            </a>
+                            <span class="px-8"></span>
+                            <button type="submit" class="button bc-1 color-1 rounded-4 hover-dark-gray">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
