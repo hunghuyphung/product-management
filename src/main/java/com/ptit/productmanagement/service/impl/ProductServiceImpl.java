@@ -21,6 +21,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean addProduct(AddProductRequest addProductRequest) {
         try {
+            if (productRepository.existsByName(addProductRequest.getName())) {
+                return false;
+            }
+
             Product product = new Product();
             product.setName(addProductRequest.getName());
             product.setDescription(addProductRequest.getDescription());

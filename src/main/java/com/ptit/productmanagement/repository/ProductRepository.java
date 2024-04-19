@@ -16,4 +16,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
     long countByName(String name);
 
     long count();
+
+    boolean existsByName(String name);
 }

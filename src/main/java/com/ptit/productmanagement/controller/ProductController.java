@@ -115,9 +115,15 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/edit")
-    public String getEditProductPage(@PathVariable Integer id, Model model) {
+    public String getEditProductPage(@PathVariable Integer id,
+                                     @RequestParam(defaultValue = "") String name,
+                                     @RequestParam(defaultValue = "") String price,
+                                     @RequestParam(defaultValue = "") String description,
+                                     @RequestParam(defaultValue = "") Integer quantity,
+                                     @RequestParam(defaultValue = "") String productImage,
+                                     Model model) {
         model.addAttribute("id", id);
-        model.addAttribute("editProductRequest", new EditProductRequest());
+        model.addAttribute("editProductRequest", new EditProductRequest(name, price, description, quantity, productImage));
 
         return EDIT_PRODUCT_FRM;
     }

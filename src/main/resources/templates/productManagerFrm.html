@@ -76,7 +76,11 @@
                                 th:text="${product.getQuantity()}"></td>
                             <td class="table-thread w-1-4 fw-normal min-w-175 min-w-140-tablet flex items-center">
                                 <a
-                                        th:href="@{'/products/' + ${product.getId()} + '/edit'}">
+                                        th:href="@{'/products/' + ${product.getId()} + '/edit?name='
+                                        + ${product.getName()} + '&price=' + ${product.getPrice()} + '&description=' +
+                                        ${product.getDescription()} + '&quantity=' + ${product.getQuantity()}
+                                        + '&productImage=' + ${product.getProductImage()}
+                                        }">
                                     <img th:src="@{/images/pencil.svg}" alt="" class="icon-0">
                                 </a>
                                 <span class="px-8"></span>

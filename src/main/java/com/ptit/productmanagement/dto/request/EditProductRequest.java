@@ -22,6 +22,17 @@ public class EditProductRequest {
     @NotBlank(message = "Ảnh không được để trống. Vui lòng kiểm tra lại")
     private String productImage;
 
+    public EditProductRequest() {
+    }
+
+    public EditProductRequest(String name, String price, String description, Integer quantity, String productImage) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.quantity = quantity;
+        this.productImage = productImage;
+    }
+
     public String getName() {
         return name;
     }

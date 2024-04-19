@@ -37,10 +37,6 @@
                         <div>
                             <div class="flex items-end">
                                 <div class="pr-64 pr-8-landscape w-1-2">
-                                    <ul class="error-inp-toast error-message-js"
-                                        th:if="${!#fields.errors('name').isEmpty()}">
-                                        <li th:each="err : ${#fields.errors('name')}" th:text="${err}" class="pt-2"/>
-                                    </ul>
                                 </div>
                                 <div class="pl-64 pl-8-landscape w-1-2">
                                     <ul class="error-inp-toast error-message-js"
@@ -53,7 +49,7 @@
                                 <div class="pr-64 pr-8-landscape w-1-2 flex justify-between items-center">
                                     <span>Tên sản phẩm</span>
                                     <input type="text" th:field="*{name}" name="name" placeholder="Tên sản phẩm"
-                                           class="wrapper__content__input w-240 min-w-172-landscape">
+                                           class="wrapper__content__input w-240 min-w-172-landscape" readonly>
                                 </div>
                                 <div class="pl-64 pl-8-landscape w-1-2 flex justify-between items-center">
                                     <span>Giá</span>
